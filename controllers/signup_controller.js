@@ -7,7 +7,7 @@ const signupGet = (req, res) => {
     res.sendStatus(200);
 };
 
-const signupPost = async (req, res) => {
+const signupPost = async (req, res, next) => {
     const result = userValidationSchema.validate(req.body, { abortEarly: false });
     if (result.error) {
         return res.json({
@@ -19,7 +19,7 @@ const signupPost = async (req, res) => {
     try {
         hashedPassword = await bcrypt.hash(password, +process.env.SALT);
     } catch (err) {
-        console.error(err);
+        next(err);
     }
     const user = new User({
         username,
