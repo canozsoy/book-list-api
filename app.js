@@ -1,4 +1,6 @@
 const express = require('express');
+
+const connectDB = require("./models/config");
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login");
 const signUpRouter = require("./routes/signup");
@@ -7,6 +9,7 @@ const notFoundRouter = require("./routes/not_found");
 
 const app = express();
 
+connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/', indexRouter);
