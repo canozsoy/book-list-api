@@ -9,7 +9,9 @@
     "devstart": "nodemon ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "~4.16.1",
+    "joi": "^17.4.2",
     "mongoose": "^6.0.13"
   },
   "devDependencies": {
