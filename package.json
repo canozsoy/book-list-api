@@ -1,0 +1,27 @@
+{
+  "name": "book-list-api",
+  "author": "Can Özsoy",
+  "description": "Book list api authentication",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www",
+    "serverstart": "DEBUG=book-list-api:* npm run devstart"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "http-errors": "^1.8.1",
+    "nodemon": "^2.0.15"
+  },
+  "engines": {
+    "node": "16.13.0"
+  },
+  "keywords": [],
+  "license": "ISC"
+}
