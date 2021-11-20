@@ -36,8 +36,11 @@ const signupPost = async (req, res, next) => {
     const token = createJWT(username);
     return res.json({
         message: 'Operation Successful!',
-        user: createdUser,
-        jwt: token,
+        user: {
+            id: createdUser.id,
+            username: createdUser.username,
+            jwt: token,
+        },
     });
 };
 
