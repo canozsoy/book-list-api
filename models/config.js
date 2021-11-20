@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+
 const mongoURL = process.env.MONGO_URL;
 
 const connectDB = async () => {
@@ -7,6 +8,6 @@ const connectDB = async () => {
     } catch (err) {
         console.error(err);
     }
-}
+};
 
 module.exports = connectDB;

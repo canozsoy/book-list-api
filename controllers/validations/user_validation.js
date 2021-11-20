@@ -1,4 +1,4 @@
-const Joi = require("joi");
+const Joi = require('joi');
 
 const userValidationSchema = Joi.object({
     username: Joi.string()
@@ -12,7 +12,7 @@ const userValidationSchema = Joi.object({
         .alphanum()
         .min(3)
         .max(15)
-        .required()
+        .required(),
 });
 
 module.exports = userValidationSchema;
