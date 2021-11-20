@@ -3,10 +3,10 @@
   "author": "Can Özsoy",
   "description": "Book list api authentication",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www"
+    "start": "node app.js",
+    "devstart": "nodemon app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
