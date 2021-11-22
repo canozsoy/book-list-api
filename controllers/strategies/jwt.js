@@ -1,12 +1,5 @@
 const jwt = require('jsonwebtoken');
-
-function extractJWTFromBearerToken(req) {
-    const bearerToken = req.headers.authorization;
-    if (!bearerToken || !bearerToken.includes('Bearer ')) {
-        return null;
-    }
-    return bearerToken.replace('Bearer ', '');
-}
+const { extractJWTFromBearerToken } = require('../helpers/jwt_operations');
 
 const createJWT = (username) => jwt.sign({ username }, process.env.JWT_SECRET, {
     expiresIn: 86400,
