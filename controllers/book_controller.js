@@ -24,11 +24,11 @@ const bookGet = async (req, res, next) => {
 };
 
 const bookPost = async (req, res, next) => {
-    const validationResult = bookValidationSchema.validate(req.body, { abortEarly: false });
+    const validationResult = bookValidationSchema
+        .postBookValidationSchema
+        .validate(req.body, { abortEarly: false });
     if (validationResult.error) {
-        return res.json({
-            error: validationResult.error,
-        });
+        return next(validationResult.error);
     }
     const book = new Book(req.body);
     let createdBook;
@@ -68,26 +68,40 @@ const documentGet = async (req, res, next) => {
     return res.json(userBooks);
 };
 
-const documentPut = (req, res) => {
-
+const documentPut = async (req, res, next) => {
+    const validationResult = bookValidationSchema
+        .putBookValidationSchema
+        .validate(req.body, { abortEarly: false });
+    if (validationResult.error) {
+        return next(validationResult.error);
+    }
+    const { id } = req.params;
+    let updatedDocument;
+    try {
+        updatedDocument = await Book.findByIdAndUpdate(id, req.body, { new: true });
+    } catch (err) {
+        return next(err);
+    }
+    return res.json({
+        message: 'Successfully Changed',
+        document: updatedDocument,
+    });
 };
 
 const documentDelete = async (req, res, next) => {
     const { id } = req.params;
     try {
-        await Book.findByIdAndDelete(id).exec();
+        await Promise.all([
+            Book.findByIdAndDelete(id).exec(),
+            User.findOneAndUpdate(
+                { username: req.locals.username },
+                { $pull: { books: id } },
+            ).exec(),
+        ]);
     } catch (err) {
         return next(err);
     }
 
-    try {
-        await User.findOneAndUpdate(
-            { username: req.locals.username },
-            { $pull: { books: id } },
-        ).exec();
-    } catch (err) {
-        return next(err);
-    }
     return res.json({
         message: 'Successfully Deleted',
     });
